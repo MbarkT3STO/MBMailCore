@@ -1,4 +1,5 @@
-﻿using MBMailCore.Core;
+﻿using System.Reflection;
+using MBMailCore.Core;
 using MBMailCore.Extensions;
 
 namespace MBMailCore.XUnitTests;
@@ -16,7 +17,7 @@ public class MailExtensionsTest
 
         // Act
         mail.SetUsername( username );
-        var actualPrivateUsername = mail.GetType().GetProperty( "Username" ).GetValue( mail ).ToString();
+        var actualPrivateUsername = typeof(Mail).GetProperty("Username", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mail, null).ToString();
 
         // Assert
         Assert.Equal( actualPrivateUsername , username );
