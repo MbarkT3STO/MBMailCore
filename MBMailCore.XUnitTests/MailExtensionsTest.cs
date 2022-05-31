@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using FluentAssertions;
 using MBMailCore.Core;
 using MBMailCore.Extensions;
 
@@ -38,5 +39,22 @@ public class MailExtensionsTest
 
         // Assert
         Assert.Equal( actualPrivatePassword , password );
+    }
+
+    [ Fact ]
+    public void From_ShouldReturn_TheGivenEmail()
+    {
+        // Arrange
+        var host        = "smtp.outlook.com";
+        var port        = 2525;
+        var mail        = new Mail(host, port);
+        var senderEmail = "mbark@outlook.com";
+
+        // Act
+        mail.From( senderEmail );
+        var currentSenderEmail = mail.MailMessage.From.Address;
+
+        // Assert
+        currentSenderEmail.Should().Be( senderEmail );
     }
 }
