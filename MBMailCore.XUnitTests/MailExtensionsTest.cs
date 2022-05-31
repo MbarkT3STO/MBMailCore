@@ -21,5 +21,22 @@ public class MailExtensionsTest
 
         // Assert
         Assert.Equal( actualPrivateUsername , username );
+    }  
+    
+    [ Fact ]
+    public void SetPassword_ShouldReturn_TheGivenPassword()
+    {
+        // Arrange
+        var host     = "smtp.outlook.com";
+        var port     = 2525;
+        var mail     = new Mail( host , port );
+        var password = "123456";
+
+        // Act
+        mail.SetPassword( password );
+        var actualPrivatePassword = typeof(Mail).GetProperty("Password", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mail, null).ToString();
+
+        // Assert
+        Assert.Equal( actualPrivatePassword , password );
     }
 }
