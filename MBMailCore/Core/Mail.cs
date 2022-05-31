@@ -6,4 +6,10 @@ public class Mail : SmtpClient
 {
     private string Username { get; set; }
     private string Password { get; set; }
+
+    public Mail(string host, int port)
+    {
+        this.Host = host;
+        this.Port = port;
+    }
 }
