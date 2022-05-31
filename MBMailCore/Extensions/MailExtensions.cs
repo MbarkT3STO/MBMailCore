@@ -1,4 +1,5 @@
-﻿using MBMailCore.Core;
+﻿using System.Reflection;
+using MBMailCore.Core;
 
 namespace MBMailCore.Extensions;
 
@@ -11,7 +12,7 @@ public static class MailExtensions
     /// <param name="username">Username</param>
     public static Mail SetUsername(this Mail mail, string username)
     {
-        mail.GetType().GetProperty( "Username" )?.SetValue( mail , username );
+        typeof(Mail).GetProperty("Username", BindingFlags.NonPublic | BindingFlags.Instance)?.SetValue( mail , username );
 
         return mail;
     }
@@ -23,7 +24,7 @@ public static class MailExtensions
     /// <param name="password">Password</param>
     public static Mail SetPassword(this Mail mail, string password)
     {
-        mail.GetType().GetProperty("Username")?.SetValue(mail, password);
+        typeof(Mail).GetProperty("Password", BindingFlags.NonPublic | BindingFlags.Instance)?.SetValue(mail, password);
 
         return mail;
     }
