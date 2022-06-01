@@ -41,4 +41,29 @@ public static class MailExtensions
         mail.MailMessage.From = new MailAddress( sender );
         return mail;
     }
+
+
+    /// <summary>
+    /// Determines the email receiver
+    /// </summary>
+    /// <param name="mail"></param>
+    /// <param name="receiver">Email of the receiver</param>
+    public static Mail To(this Mail mail, string receiver)
+    {
+        mail.MailMessage.To.Add( receiver );
+
+        return mail;
+    }
+    
+    /// <summary>
+    /// Determines the email receivers
+    /// </summary>
+    /// <param name="mail"></param>
+    /// <param name="receivers">Emails of the receivers</param>
+    public static Mail To(this Mail mail, List<string> receivers)
+    {
+        receivers.ForEach( receiver => mail.MailMessage.To.Add( receiver ) );
+
+        return mail;
+    }
 }
