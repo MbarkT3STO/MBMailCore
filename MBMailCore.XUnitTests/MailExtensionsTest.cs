@@ -157,5 +157,6 @@ public class MailExtensionsTest
 
         // Assert
         actualBody.Should().Be( body );
-    }
+    }  
+
 }
