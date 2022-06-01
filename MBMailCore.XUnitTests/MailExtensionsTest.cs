@@ -57,4 +57,47 @@ public class MailExtensionsTest
         // Assert
         currentSenderEmail.Should().Be( senderEmail );
     }
+
+    [ Fact ]
+    public void To_ShouldReturn_TheGivenEmail()
+    {
+        // Arrange
+        var host          = "smtp.outlook.com";
+        var port          = 2525;
+        var mail          = new Mail(host, port);
+        var receiverEmail = "mbark@outlook.com";
+
+        // Act
+        mail.To( receiverEmail );
+        var currentReceiverEmail = mail.MailMessage.To.First().Address;
+
+        // Assert
+        currentReceiverEmail.Should().Be( receiverEmail );
+    }
+
+    [Fact]
+    public void To_ShouldReturn_TheGivenEmails()
+    {
+        // Arrange
+        var host            = "smtp.outlook.com";
+        var port            = 2525;
+        var mail            = new Mail(host, port);
+        var receiversEmails = new List<string>()
+                              {
+                                  "mbark@outlook.com" ,
+                                  "mbark1@outlook.com" ,
+                                  "mbark2@outlook.com" ,
+                                  "mbark3@outlook.com" ,
+                                  "mbark4@outlook.com" ,
+                              };
+
+        // Act
+        mail.To( receiversEmails );
+        var currentReceiversEmails    = mail.MailMessage.To.Select( x => x.Address ).ToList();
+        var currentFirstReceiverEmail = mail.MailMessage.To.First().Address;
+
+        // Assert
+        currentReceiversEmails.Should().BeEquivalentTo( receiversEmails );
+        currentFirstReceiverEmail.Should().Be( receiversEmails.First() );
+    }
 }
