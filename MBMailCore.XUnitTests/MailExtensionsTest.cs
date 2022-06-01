@@ -120,4 +120,22 @@ public class MailExtensionsTest
         // Assert
         currentSubject.Should().Be( subject );
     }
+
+
+    [Fact]
+    public void Body_ShouldReturn_TheGivenBody()
+    {
+        // Arrange
+        var host = "smtp.outlook.com";
+        var port = 2525;
+        var mail = new Mail(host, port);
+        var body = "Test the Subject method";
+
+        // Act
+        mail.Body( body );
+        var actualBody = mail.MailMessage.Body;
+
+        // Assert
+        actualBody.Should().Be( body );
+    }
 }
