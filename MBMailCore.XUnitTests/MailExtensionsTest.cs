@@ -41,6 +41,7 @@ public class MailExtensionsTest
         Assert.Equal( actualPrivatePassword , password );
     }
 
+
     [ Fact ]
     public void From_ShouldReturn_TheGivenEmail()
     {
@@ -57,6 +58,7 @@ public class MailExtensionsTest
         // Assert
         currentSenderEmail.Should().Be( senderEmail );
     }
+
 
     [ Fact ]
     public void To_ShouldReturn_TheGivenEmail()
@@ -99,5 +101,23 @@ public class MailExtensionsTest
         // Assert
         currentReceiversEmails.Should().BeEquivalentTo( receiversEmails );
         currentFirstReceiverEmail.Should().Be( receiversEmails.First() );
+    }
+
+
+    [Fact]
+    public void Subject_ShouldReturn_TheGivenSubject()
+    {
+        // Arrange
+        var host    = "smtp.outlook.com";
+        var port    = 2525;
+        var mail    = new Mail(host, port);
+        var subject = "Test the Subject method";
+
+        // Act
+        mail.Subject( subject );
+        var currentSubject = mail.MailMessage.Subject;
+
+        // Assert
+        currentSubject.Should().Be( subject );
     }
 }
