@@ -149,7 +149,7 @@ public class MailExtensionsTest
         var host = "smtp.outlook.com";
         var port = 2525;
         var mail = new Mail(host, port);
-        var body = "Test the Subject method";
+        var body = "Test the Body method";
 
         // Act
         mail.Body( body );
@@ -157,6 +157,24 @@ public class MailExtensionsTest
 
         // Assert
         actualBody.Should().Be( body );
-    }  
+    }
+
+
+    [Fact]
+    public void IsBodyHtml_ShouldSet_TheGivenBooleanValue()
+    {
+        // Arrange
+        var host = "smtp.outlook.com";
+        var port = 2525;
+        var mail = new Mail(host, port);
+        var body = "<h1>Test the IsBodyHtml method</h1>";
+
+        // Act
+        mail.Body( body ).IsBodyHtml( true );
+        var actualIsBodyHtml = mail.MailMessage.IsBodyHtml;
+
+        // Assert
+        actualIsBodyHtml.Should().Be( true );
+    }
 
 }

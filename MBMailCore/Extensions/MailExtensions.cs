@@ -123,13 +123,13 @@ public static class MailExtensions
         mail.MailMessage.Body = body;
 
         return mail;
-    }  
-    
+    }
+
     /// <summary>
-    /// Determines the email's body
+    /// Determines if the email's body is HTML
     /// </summary>
     /// <param name="mail"></param>
-    /// <param name="isBodyHtml">Determines if the email's body is HTML</param>
+    /// <param name="isBodyHtml"><b>True</b> if the body is HTML,</param>
     public static Mail IsBodyHtml(this Mail mail, bool isBodyHtml)
     {
         mail.MailMessage.IsBodyHtml = isBodyHtml;
