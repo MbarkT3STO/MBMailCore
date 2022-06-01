@@ -1,4 +1,5 @@
-﻿using System.Net.Mail;
+﻿using System.Net;
+using System.Net.Mail;
 using System.Reflection;
 using MBMailCore.Core;
 
@@ -26,6 +27,22 @@ public static class MailExtensions
     public static Mail SetPassword(this Mail mail, string password)
     {
         typeof(Mail).GetProperty("Password", BindingFlags.NonPublic | BindingFlags.Instance)?.SetValue(mail, password);
+
+        return mail;
+    }
+
+    /// <summary>
+    /// Set the <b>credentials</b> of the mail sender
+    /// </summary>
+    /// <param name="mail"></param>
+    /// <param name="username">Username</param>
+    /// <param name="password">Password</param>
+    public static Mail Credentials(this Mail mail, string username, string password)
+    {
+        SetUsername(mail, username );
+        SetPassword(mail, password );
+
+        mail.Client.Credentials = new NetworkCredential( username , password );
 
         return mail;
     }
