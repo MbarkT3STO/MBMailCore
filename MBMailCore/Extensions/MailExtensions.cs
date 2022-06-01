@@ -47,6 +47,21 @@ public static class MailExtensions
         return mail;
     }
 
+    /// <summary>
+    /// Set the <b>credentials</b> of the mail sender
+    /// </summary>
+    /// <param name="mail"></param>
+    /// <param name="credential">Sender credentials</param>
+    public static Mail Credentials(this Mail mail, NetworkCredential credential)
+    {
+        SetUsername( mail , credential.UserName );
+        SetPassword( mail , credential.Password );
+
+        mail.Client.Credentials = credential;
+
+        return mail;
+    }
+
 
     /// <summary>
     /// Determines the email sender
