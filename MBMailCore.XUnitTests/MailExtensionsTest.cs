@@ -8,7 +8,7 @@ namespace MBMailCore.XUnitTests;
 public class MailExtensionsTest
 {
     [ Fact ]
-    public void SetUsername_ShouldReturn_TheGivenUsername()
+    public void SetUsername_ShouldSet_TheGivenUsername()
     {
         // Arrange
         var host     = "smtp.outlook.com";
@@ -25,7 +25,7 @@ public class MailExtensionsTest
     }  
     
     [ Fact ]
-    public void SetPassword_ShouldReturn_TheGivenPassword()
+    public void SetPassword_ShouldSet_TheGivenPassword()
     {
         // Arrange
         var host     = "smtp.outlook.com";
@@ -39,11 +39,31 @@ public class MailExtensionsTest
 
         // Assert
         Assert.Equal( actualPrivatePassword , password );
+    }   
+    
+    [ Fact ]
+    public void Credentials_ShouldSet_TheGivenUsernameAndPassword()
+    {
+        // Arrange
+        var host     = "smtp.outlook.com";
+        var port     = 2525;
+        var mail     = new Mail( host , port );
+        var username = "MBARK";
+        var password = "123456";
+
+        // Act
+        mail.Credentials( username , password );
+        var actualPrivateUsername = typeof(Mail).GetProperty("Username", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mail, null).ToString();
+        var actualPrivatePassword = typeof(Mail).GetProperty("Password", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mail, null).ToString();
+      
+        // Assert
+        Assert.Equal( actualPrivateUsername , username );
+        Assert.Equal( actualPrivatePassword , password );
     }
 
 
     [ Fact ]
-    public void From_ShouldReturn_TheGivenEmail()
+    public void From_ShouldSet_TheGivenEmail()
     {
         // Arrange
         var host        = "smtp.outlook.com";
@@ -61,7 +81,7 @@ public class MailExtensionsTest
 
 
     [ Fact ]
-    public void To_ShouldReturn_TheGivenEmail()
+    public void To_ShouldSet_TheGivenEmail()
     {
         // Arrange
         var host          = "smtp.outlook.com";
@@ -78,7 +98,7 @@ public class MailExtensionsTest
     }
 
     [Fact]
-    public void To_ShouldReturn_TheGivenEmails()
+    public void To_ShouldSet_TheGivenEmails()
     {
         // Arrange
         var host            = "smtp.outlook.com";
@@ -105,7 +125,7 @@ public class MailExtensionsTest
 
 
     [Fact]
-    public void Subject_ShouldReturn_TheGivenSubject()
+    public void Subject_ShouldSet_TheGivenSubject()
     {
         // Arrange
         var host    = "smtp.outlook.com";
@@ -123,7 +143,7 @@ public class MailExtensionsTest
 
 
     [Fact]
-    public void Body_ShouldReturn_TheGivenBody()
+    public void Body_ShouldSet_TheGivenBody()
     {
         // Arrange
         var host = "smtp.outlook.com";
