@@ -66,4 +66,17 @@ public static class MailExtensions
 
         return mail;
     }
+
+
+    /// <summary>
+    /// Determines the email's subject
+    /// </summary>
+    /// <param name="mail"></param>
+    /// <param name="subject">Email's subject</param>
+    public static Mail Subject(this Mail mail, string subject)
+    {
+        mail.MailMessage.Subject = subject;
+
+        return mail;
+    }
 }
