@@ -79,4 +79,17 @@ public static class MailExtensions
 
         return mail;
     }
+
+
+    /// <summary>
+    /// Determines the email's body
+    /// </summary>
+    /// <param name="mail"></param>
+    /// <param name="body">Email's body</param>
+    public static Mail Body(this Mail mail, string body)
+    {
+        mail.MailMessage.Body = body;
+
+        return mail;
+    }
 }
