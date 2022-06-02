@@ -152,4 +152,14 @@ public static class MailExtensions
 
         return mail;
     }
+
+
+    /// <summary>
+    /// Sends the email
+    /// </summary>
+    /// <param name="mail"></param>
+    public static void Send(this Mail mail)
+    {
+        mail.Client.Send( mail.MailMessage );
+    }
 }
