@@ -177,4 +177,21 @@ public class MailExtensionsTest
         actualIsBodyHtml.Should().Be( true );
     }
 
+
+    [Fact]
+    public void EnableSsl_Should_EnableSsl()
+    {
+        // Arrange
+        var host = "smtp.outlook.com";
+        var port = 2525;
+        var mail = new Mail(host, port);
+
+        // Act
+        mail.EnableSsl();
+        var actualStatOfSsl = mail.Client.EnableSsl;
+
+        // Assert
+        actualStatOfSsl.Should().Be( true );
+    }
+
 }
