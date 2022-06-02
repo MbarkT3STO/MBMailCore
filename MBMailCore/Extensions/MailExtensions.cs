@@ -155,6 +155,34 @@ public static class MailExtensions
 
 
     /// <summary>
+    /// Determines the email's attachment
+    /// </summary>
+    /// <param name="mail"></param>
+    /// <param name="attachment">Email's attachment</param>
+    public static Mail Attachments(this Mail mail, Attachment attachment)
+    {
+        mail.MailMessage.Attachments.Add( attachment );
+
+        return mail;
+    }
+
+    /// <summary>
+    /// Determines the email attachments
+    /// </summary>
+    /// <param name="mail"></param>
+    /// <param name="attachments">Email attachments</param>
+    public static Mail Attachments(this Mail mail, ICollection<Attachment> attachments)
+    {
+        foreach ( Attachment attachment in attachments )
+        {
+            mail.MailMessage.Attachments.Add( attachment );
+        }
+
+        return mail;
+    }
+
+
+    /// <summary>
     /// Sends the email
     /// </summary>
     /// <param name="mail"></param>
