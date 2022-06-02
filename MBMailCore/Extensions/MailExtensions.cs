@@ -162,4 +162,14 @@ public static class MailExtensions
     {
         mail.Client.Send( mail.MailMessage );
     }
+
+
+    /// <summary>
+    /// Sends the email asynchronously
+    /// </summary>
+    /// <param name="mail"></param>
+    public static Task SendAsync(this Mail mail)
+    {
+        return mail.Client.SendMailAsync( mail.MailMessage );
+    }
 }
