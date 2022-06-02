@@ -62,6 +62,28 @@ public static class MailExtensions
         return mail;
     }
 
+    /// <summary>
+    /// Enables the SSL
+    /// </summary>
+    /// <param name="mail"></param>
+    public static Mail EnableSsl(this Mail mail)
+    {
+        mail.Client.EnableSsl = true;
+
+        return mail;
+    }
+      
+    /// <summary>
+    /// Disables the SSL
+    /// </summary>
+    /// <param name="mail"></param>
+    public static Mail DisableSsl(this Mail mail)
+    {
+        mail.Client.EnableSsl = false;
+
+        return mail;
+    }
+
 
     /// <summary>
     /// Determines the email sender
