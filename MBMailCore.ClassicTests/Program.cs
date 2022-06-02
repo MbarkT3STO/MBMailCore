@@ -1,21 +1,28 @@
 ﻿
+using System.Net;
 using System.Reflection;
 using MBMailCore.Core;
 using MBMailCore.Extensions;
 
-var host = "smtp.outlook.com";
-var port = 2525;
+var host = "smtp-mail.outlook.com";
+var port = 587;
 
 // Create mail object
 var mail = new Mail( host , port );
 
-// Set Username and Password
-mail.SetUsername("MBARK").SetPassword("123456");
+// Credentials
+var credentials = new NetworkCredential( "mbarkdev@outlook.com" , "X@123456@X" );
 
-var privateUsername = typeof( Mail ).GetProperty("Username", BindingFlags.NonPublic | BindingFlags.Instance ).GetValue(mail, null).ToString();
-var privatePassword = typeof(Mail).GetProperty( "Password" , BindingFlags.NonPublic | BindingFlags.Instance ).GetValue(mail, null).ToString();
+Console.WriteLine( "Sending..." );
 
-Console.WriteLine(privateUsername);
-Console.WriteLine(privatePassword);
+// Mail
+mail.Credentials( credentials )
+    .From( "mbarkdev@outlook.com" )
+    .To( "mbarktiesto@outlook.com" )
+    .Subject( "Global test N1" )
+    .Body( "Hello dear from the global test N1" )
+    .Send();
+
+Console.WriteLine("Sent");
 
 Console.ReadKey();

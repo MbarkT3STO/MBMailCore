@@ -20,17 +20,20 @@ public class Mail
 
     public Mail(string host, int port)
     {
-        Client = new SmtpClient( host , port );
-    }  
+        Client           = new SmtpClient( host , port );
+        Client.EnableSsl = true;
+    }
     public Mail(string host, int port, string username, string password)
     {
-        Client = new SmtpClient( host , port );
+        Client           = new SmtpClient( host , port );
+        Client.EnableSsl = true;
 
         this.Credentials( username , password );
     } 
     public Mail(string host, int port, NetworkCredential credential)
     {
-        Client = new SmtpClient( host , port );
+        Client           = new SmtpClient( host , port );
+        Client.EnableSsl = true;
 
         this.Credentials( credential );
     }
