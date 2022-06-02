@@ -125,11 +125,27 @@ public static class MailExtensions
         return mail;
     }
 
+
+    /// <summary>
+    /// Determines the email's body
+    /// </summary>
+    /// <param name="mail"></param>
+    /// <param name="body">Email's body</param>
+    /// <param name="isBodyHtml"><b>True</b> if the body is HTML</param>
+    public static Mail Body(this Mail mail, string body, bool isBodyHtml)
+    {
+        mail.MailMessage.Body = body;
+
+        IsBodyHtml( mail , isBodyHtml );
+
+        return mail;
+    }
+
     /// <summary>
     /// Determines if the email's body is HTML
     /// </summary>
     /// <param name="mail"></param>
-    /// <param name="isBodyHtml"><b>True</b> if the body is HTML,</param>
+    /// <param name="isBodyHtml"><b>True</b> if the body is HTML</param>
     public static Mail IsBodyHtml(this Mail mail, bool isBodyHtml)
     {
         mail.MailMessage.IsBodyHtml = isBodyHtml;
