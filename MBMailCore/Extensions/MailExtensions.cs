@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Reflection;
 using MBMailCore.Core;
 
@@ -183,6 +184,21 @@ public static class MailExtensions
     /// <param name="attachment">Email's attachment</param>
     public static Mail Attachments(this Mail mail, Attachment attachment)
     {
+        mail.MailMessage.Attachments.Add( attachment );
+
+        return mail;
+    }
+
+
+    /// <summary>
+    /// Determines the email's attachment
+    /// </summary>
+    /// <param name="mail"></param>
+    /// <param name="attachmentStream">Email's attachment as <see cref="Stream"/></param>
+    /// <param name="mediaType">The attachment media type</param>
+    public static Mail Attachments(this Mail mail, Stream attachmentStream, string mediaType)
+    {
+        var attachment = new Attachment( attachmentStream , new ContentType( mediaType ) );
         mail.MailMessage.Attachments.Add( attachment );
 
         return mail;
