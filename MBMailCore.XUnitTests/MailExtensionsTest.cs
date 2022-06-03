@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Net.Mime;
+using System.Reflection;
 using FluentAssertions;
 using MBMailCore.Core;
 using MBMailCore.Extensions;
@@ -208,6 +209,26 @@ public class MailExtensionsTest
 
         // Assert
         actualStatOfSsl.Should().Be( false );
+    }
+
+
+    [Fact]
+    public void Attachments_With_StreamParameter_Should_SetTheAttachment()
+    {
+        // Arrange
+        var host = "smtp.outlook.com";
+        var port = 2525;
+        var mail = new Mail(host, port);
+
+        var filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+"\\VLOOKUP.xlsx";
+        var fileAsStream = File.Open( filePath, FileMode.Open);
+
+        // Act
+        mail.Attachments( fileAsStream , MediaTypeNames.Application.Pdf );
+        var actualAttachmentsCount = mail.MailMessage.Attachments.Count;
+
+        // Assert
+        actualAttachmentsCount.Should().Be( 1 );
     }
 
 }
