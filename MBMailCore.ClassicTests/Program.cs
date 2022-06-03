@@ -53,23 +53,48 @@ var credentials = new NetworkCredential( "mbarkdev@outlook.com" , "X@123456@X" )
 
 #region Global test N3 [ Failed ]
 
+//Console.WriteLine("Sending...");
+
+//var attachment = new Attachment(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\TP.pdf");
+
+//var filePath     = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\VLOOKUP.xlsx";
+//var fileAsStream = File.Open( filePath , FileMode.Open );
+
+
+//// Mail
+//mail.Credentials( credentials )
+//    .EnableSsl()
+//    .From( "mbarkdev@outlook.com" )
+//    .To( "mbarktiesto@outlook.com" )
+//    .Subject( "Global test N3" )
+//    .Body( "Hello dear from the global test N3" )
+//    .Attachments( attachment )
+//    .Attachments( fileAsStream , MediaTypeNames.Application.Octet)
+//    .Send();
+
+//Console.WriteLine("Sent");
+
+#endregion
+
+#region Global test N4 [ Passed ]
+
 Console.WriteLine("Sending...");
 
 var attachment = new Attachment(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\TP.pdf");
 
-var filePath     = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\VLOOKUP.xlsx";
-var fileAsStream = File.Open( filePath , FileMode.Open );
+var filePath     = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Practice data.xlsx";
+var fileAsStream = File.Open(filePath, FileMode.Open);
 
 
 // Mail
-mail.Credentials( credentials )
+mail.Credentials(credentials)
     .EnableSsl()
-    .From( "mbarkdev@outlook.com" )
-    .To( "mbarktiesto@outlook.com" )
-    .Subject( "Global test N3" )
-    .Body( "Hello dear from the global test N3" )
-    .Attachments( attachment )
-    .Attachments( fileAsStream , MediaTypeNames.Application.Octet)
+    .From("mbarkdev@outlook.com")
+    .To("mbarktiesto@outlook.com")
+    .Subject("Global test N4")
+    .Body("Hello dear from the global test N4")
+    .Attachments(attachment)
+    .Attachments(fileAsStream, "application/vnd.ms-excel")
     .Send();
 
 Console.WriteLine("Sent");
