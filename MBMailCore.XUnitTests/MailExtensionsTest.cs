@@ -224,7 +224,7 @@ public class MailExtensionsTest
         var fileAsStream = File.Open( filePath, FileMode.Open);
 
         // Act
-        mail.Attachments( fileAsStream , MediaTypeNames.Application.Pdf );
+        mail.Attachments( fileAsStream , MediaTypeNames.Application.Octet );
         var actualAttachmentsCount = mail.MailMessage.Attachments.Count;
 
         // Assert
