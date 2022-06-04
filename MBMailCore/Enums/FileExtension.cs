@@ -9,6 +9,7 @@ public enum FileExtension
     avi ,
     azw ,
     bin ,
+    bmp,
     bz ,
     bz2 ,
     cda ,
@@ -76,6 +77,8 @@ public enum FileExtension
     xul ,
     zip ,
     _3gp ,
+    _3gp_OnlyAudio ,
     _3g2 ,
+    _3g2_OnlyAudio ,
     _7z ,
 }
