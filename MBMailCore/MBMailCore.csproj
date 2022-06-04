@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="Core\" />
+    <Folder Include="Enums\" />
   </ItemGroup>
 
 </Project>
