@@ -4,6 +4,7 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Reflection;
 using MBMailCore.Core;
+using MBMailCore.Enums;
 using MBMailCore.Extensions;
 
 var host = "smtp-mail.outlook.com";
@@ -13,7 +14,7 @@ var port = 587;
 var mail = new Mail( host , port );
 
 // Credentials
-var credentials = new NetworkCredential( "mbarkdev@outlook.com" , "X@123456@X" );
+var credentials = new NetworkCredential( "mbarkdev@outlook.com" , "@123456@" );
 
 #region Global test N1 [ Passed ]
 
@@ -78,6 +79,31 @@ var credentials = new NetworkCredential( "mbarkdev@outlook.com" , "X@123456@X" )
 
 #region Global test N4 [ Passed ]
 
+//Console.WriteLine("Sending...");
+
+//var attachment = new Attachment(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\TP.pdf");
+
+//var filePath     = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Practice data.xlsx";
+//var fileAsStream = File.Open(filePath, FileMode.Open);
+
+
+//// Mail
+//mail.Credentials(credentials)
+//    .EnableSsl()
+//    .From("mbarkdev@outlook.com")
+//    .To("mbarktiesto@outlook.com")
+//    .Subject("Global test N4")
+//    .Body("Hello dear from the global test N4")
+//    .Attachments(attachment)
+//    .Attachments(fileAsStream, "application/vnd.ms-excel")
+//    .Send();
+
+//Console.WriteLine("Sent");
+
+#endregion
+
+#region Global test N5 [ Passed ]
+
 Console.WriteLine("Sending...");
 
 var attachment = new Attachment(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\TP.pdf");
@@ -87,14 +113,14 @@ var fileAsStream = File.Open(filePath, FileMode.Open);
 
 
 // Mail
-mail.Credentials(credentials)
+mail.Credentials( credentials )
     .EnableSsl()
-    .From("mbarkdev@outlook.com")
-    .To("mbarktiesto@outlook.com")
-    .Subject("Global test N4")
-    .Body("Hello dear from the global test N4")
-    .Attachments(attachment)
-    .Attachments(fileAsStream, "application/vnd.ms-excel")
+    .From( "mbarkdev@outlook.com" )
+    .To( "mbarktiesto@outlook.com" )
+    .Subject( "Global test N5" )
+    .Body( "Hello dear from the global test N5" )
+    .Attachments( attachment )
+    .Attachments( fileAsStream , FileExtension.xlsx )
     .Send();
 
 Console.WriteLine("Sent");
