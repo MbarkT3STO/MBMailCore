@@ -4,6 +4,7 @@ using System.Net.Mime;
 using System.Reflection;
 using MBMailCore.Core;
 using MBMailCore.Enums;
+using MBMailCore.Exceptions;
 
 namespace MBMailCore.Extensions;
 
@@ -103,6 +104,26 @@ public static class MailExtensions
                };
     }
 
+    /// <summary>
+    /// Checks if a text is a valid email
+    /// </summary>
+    /// <param name="value">Text to be checked</param>
+    private static bool IsValidEmail( string value )
+    {
+        try
+        {
+            var trimmedValue = value.Trim();
+            var mailAddress  = new MailAddress( trimmedValue );
+
+            return mailAddress.Address == trimmedValue;
+        }
+        catch
+        {
+            return false;
+        }
+
+    }
+
     #endregion
 
     /// <summary>
@@ -188,8 +209,12 @@ public static class MailExtensions
     /// </summary>
     /// <param name="mail"></param>
     /// <param name="sender">Email of the sender</param>
+    /// <exception cref="EmailIsNotValidException"></exception>
     public static Mail From(this Mail mail, string sender)
     {
+        // Throw exception if the email(sender) is not valid
+        if ( IsValidEmail( sender ) ) throw new EmailIsNotValidException( sender );
+
         mail.MailMessage.From = new MailAddress( sender );
         return mail;
     }

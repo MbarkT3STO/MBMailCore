@@ -14,7 +14,7 @@ var port = 587;
 var mail = new Mail( host , port );
 
 // Credentials
-var credentials = new NetworkCredential( "mbarkdev@outlook.com" , "@123456@" );
+var credentials = new NetworkCredential( "mbarkdev@outlook.com" , "X@123456@X" );
 
 #region Global test N1 [ Passed ]
 
