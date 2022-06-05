@@ -2,6 +2,7 @@
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using MBMailCore.Core;
 using MBMailCore.Enums;
 using MBMailCore.Exceptions;
@@ -113,15 +114,18 @@ public static class MailExtensions
         try
         {
             var trimmedValue = value.Trim();
-            var mailAddress  = new MailAddress( trimmedValue );
+            const string pattern = @"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|"
+                                   + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)"
+                                   + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$";
 
-            return mailAddress.Address == trimmedValue;
+            var regex = new Regex( pattern , RegexOptions.IgnoreCase );
+
+            return regex.IsMatch( trimmedValue );
         }
         catch
         {
             return false;
         }
-
     }
 
     #endregion
@@ -213,7 +217,7 @@ public static class MailExtensions
     public static Mail From(this Mail mail, string sender)
     {
         // Throw exception if the email(sender) is not valid
-        if ( IsValidEmail( sender ) ) throw new EmailIsNotValidException( sender );
+        if ( !IsValidEmail( sender ) ) throw new EmailIsNotValidException( sender );
 
         mail.MailMessage.From = new MailAddress( sender );
         return mail;

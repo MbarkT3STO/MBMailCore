@@ -2,6 +2,7 @@
 using System.Reflection;
 using FluentAssertions;
 using MBMailCore.Core;
+using MBMailCore.Exceptions;
 using MBMailCore.Extensions;
 
 namespace MBMailCore.XUnitTests;
@@ -78,6 +79,26 @@ public class MailExtensionsTest
 
         // Assert
         currentSenderEmail.Should().Be( senderEmail );
+    } 
+    
+    [ Theory ]
+    [InlineData( "mb ark@outlook.com")]
+    [InlineData( "mb;ark@outlook.com")]
+    [InlineData( "mbark$outlook.com")]
+    [InlineData( "mbark outlook.com")]
+    [InlineData( "mbark@outlookcom")]
+    [InlineData( "mbark@outlook")]
+    public void From_With_InvalidEmails_Should_ThrowException(string sender)
+    {
+        // Arrange
+        var host        = "smtp.outlook.com";
+        var port        = 2525;
+        var mail        = new Mail(host, port);
+
+        // Act
+
+        // Assert
+        Assert.Throws<EmailIsNotValidException>( () => mail.From( sender ) );
     }
 
 
