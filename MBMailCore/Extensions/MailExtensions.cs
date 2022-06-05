@@ -295,6 +295,22 @@ public static class MailExtensions
     /// <param name="mediaType">The attachment media type</param>
     public static Mail Attachments(this Mail mail, Stream attachmentStream, string mediaType)
     {
+        var attachment = new Attachment(attachmentStream, new ContentType(mediaType));
+        mail.MailMessage.Attachments.Add(attachment);
+
+        return mail;
+    }
+
+
+    /// <summary>
+    /// Determines the email's attachment
+    /// </summary>
+    /// <param name="mail"></param>
+    /// <param name="attachmentStream">Email's attachment as <see cref="Stream"/></param>
+    /// <param name="fileExtension">The attachment media type / File extension</param>
+    public static Mail Attachments(this Mail mail, Stream attachmentStream, FileExtension fileExtension)
+    {
+        var mediaType  = GetMimeType( fileExtension );
         var attachment = new Attachment( attachmentStream , new ContentType( mediaType ) );
         mail.MailMessage.Attachments.Add( attachment );
 
