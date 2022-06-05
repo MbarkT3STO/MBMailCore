@@ -99,6 +99,25 @@ public class MailExtensionsTest
 
         // Assert
         Assert.Throws<EmailIsNotValidException>( () => mail.From( sender ) );
+    }   
+    
+    [ Theory ]
+    [InlineData( "mbark@outlook.com")]
+    [InlineData( "MbarkT3sto@outlook.com")]
+    [InlineData( "mbark$@outlook.com")]
+    public void From_With_ValidEmails_Should_SetTheEmails(string sender)
+    {
+        // Arrange
+        var host = "smtp.outlook.com";
+        var port = 2525;
+        var mail = new Mail( host , port );
+
+        // Act
+        mail.From(sender);
+        var currentSenderEmail = mail.MailMessage.From.Address;
+
+        // Assert
+        currentSenderEmail.Should().Be(sender);
     }
 
 
