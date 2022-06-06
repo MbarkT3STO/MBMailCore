@@ -183,6 +183,26 @@ public class MailExtensionsTest
         currentReceiverEmail.Should().Be( receiver );
     }
 
+    [Theory]
+    [InlineData( "mb ark@outlook.com")]
+    [InlineData( "mb;ark@outlook.com")]
+    [InlineData( "mbark$outlook.com")]
+    [InlineData( "mbark outlook.com")]
+    [InlineData( "mbark@outlookcom")]
+    [InlineData( "mbark@outlook")]
+    public void To_With_InValidEmails_Should_ThrowException(string receiver)
+    {
+        // Arrange
+        var host = "smtp.outlook.com";
+        var port = 2525;
+        var mail = new Mail(host, port);
+
+        // Act
+
+        // Assert
+        Assert.Throws<EmailIsNotValidException>( () => mail.From( receiver ) );
+    }
+
 
     [Fact]
     public void Subject_ShouldSet_TheGivenSubject()
