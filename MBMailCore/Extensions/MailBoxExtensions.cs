@@ -29,4 +29,18 @@ public static class MailBoxExtensions
 
         return mailBox;
     }
+
+
+    /// <summary>
+    /// Authenticates the user to his email box
+    /// </summary>
+    /// <param name="mailBox"></param>
+    /// <param name="username">Username</param>
+    /// <param name="password">Password</param>
+    public static MailBox Authenticate(this MailBox mailBox, string username, string password)
+    {
+        mailBox.PopClient.Authenticate( username , password );
+
+        return mailBox;
+    }
 }
