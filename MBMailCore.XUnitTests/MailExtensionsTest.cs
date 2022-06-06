@@ -164,6 +164,25 @@ public class MailExtensionsTest
         currentFirstReceiverEmail.Should().Be( receiversEmails.First() );
     }
 
+    [Theory]
+    [InlineData( "mbark@outlook.com")]
+    [InlineData( "MbarkT3sto@outlook.com")]
+    [InlineData( "mbark$@outlook.com")]
+    public void To_With_ValidEmails_Should_SetTheEmails(string receiver)
+    {
+        // Arrange
+        var host          = "smtp.outlook.com";
+        var port          = 2525;
+        var mail          = new Mail(host, port);
+
+        // Act
+        mail.To(receiver);
+        var currentReceiverEmail = mail.MailMessage.To.First().Address;
+
+        // Assert
+        currentReceiverEmail.Should().Be( receiver );
+    }
+
 
     [Fact]
     public void Subject_ShouldSet_TheGivenSubject()
