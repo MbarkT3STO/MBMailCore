@@ -326,8 +326,12 @@ public static class MailExtensions
     /// <param name="mediaType">The attachment media type</param>
     public static Mail Attachments(this Mail mail, Stream attachmentStream, string mediaType)
     {
-        var attachment = new Attachment(attachmentStream, new ContentType(mediaType));
-        mail.MailMessage.Attachments.Add(attachment);
+        using ( attachmentStream )
+        {
+            var attachment = new Attachment(attachmentStream, new ContentType(mediaType)); 
+            mail.MailMessage.Attachments.Add(attachment);            
+        }
+
 
         return mail;
     }
@@ -341,9 +345,12 @@ public static class MailExtensions
     /// <param name="fileExtension">The attachment media type / File extension</param>
     public static Mail Attachments(this Mail mail, Stream attachmentStream, FileExtension fileExtension)
     {
-        var mediaType  = GetMimeType( fileExtension );
-        var attachment = new Attachment( attachmentStream , new ContentType( mediaType ) );
-        mail.MailMessage.Attachments.Add( attachment );
+        using ( attachmentStream )
+        {
+            var mediaType  = GetMimeType(fileExtension);
+            var attachment = new Attachment(attachmentStream, new ContentType(mediaType));
+            mail.MailMessage.Attachments.Add(attachment);
+        }
 
         return mail;
     }
