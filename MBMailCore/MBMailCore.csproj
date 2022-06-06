@@ -12,4 +12,10 @@
     <Folder Include="Enums\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="GemBox.Email">
+      <HintPath>External Dependencies\GemBox.Email.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
