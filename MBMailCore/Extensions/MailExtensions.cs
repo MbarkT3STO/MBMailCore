@@ -158,7 +158,7 @@ public static class MailExtensions
         SetUsername(mail, username );
         SetPassword(mail, password );
 
-        mail.Client.Credentials = new NetworkCredential( username , password );
+        mail.SmtpClient.Credentials = new NetworkCredential( username , password );
 
         return mail;
     }
@@ -173,7 +173,7 @@ public static class MailExtensions
         SetUsername( mail , credential.UserName );
         SetPassword( mail , credential.Password );
 
-        mail.Client.Credentials = credential;
+        mail.SmtpClient.Credentials = credential;
 
         return mail;
     }
@@ -184,7 +184,7 @@ public static class MailExtensions
     /// <param name="mail"></param>
     public static Mail EnableSsl(this Mail mail)
     {
-        mail.Client.EnableSsl = true;
+        mail.SmtpClient.EnableSsl = true;
 
         return mail;
     }
@@ -195,7 +195,7 @@ public static class MailExtensions
     /// <param name="mail"></param>
     public static Mail DisableSsl(this Mail mail)
     {
-        mail.Client.EnableSsl = false;
+        mail.SmtpClient.EnableSsl = false;
 
         return mail;
     }
@@ -377,7 +377,7 @@ public static class MailExtensions
     /// <param name="mail"></param>
     public static void Send(this Mail mail)
     {
-        mail.Client.Send( mail.MailMessage );
+        mail.SmtpClient.Send( mail.MailMessage );
     }
 
 
@@ -387,6 +387,6 @@ public static class MailExtensions
     /// <param name="mail"></param>
     public static Task SendAsync(this Mail mail)
     {
-        return mail.Client.SendMailAsync( mail.MailMessage );
+        return mail.SmtpClient.SendMailAsync( mail.MailMessage );
     }
 }

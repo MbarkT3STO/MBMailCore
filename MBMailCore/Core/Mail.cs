@@ -11,7 +11,7 @@ public class Mail
     private string Username { get; set; }
     private string Password { get; set; }
 
-    public SmtpClient  Client      { get; set; }
+    public SmtpClient  SmtpClient  { get; set; }
     public MailMessage MailMessage { get; set; } = new();
 
     #endregion
@@ -20,17 +20,17 @@ public class Mail
 
     public Mail(string host, int port)
     {
-        Client = new SmtpClient( host , port );
+        SmtpClient = new SmtpClient( host , port );
     }
     public Mail(string host, int port, string username, string password)
     {
-        Client = new SmtpClient( host , port );
+        SmtpClient = new SmtpClient( host , port );
 
         this.Credentials( username , password );
     } 
     public Mail(string host, int port, NetworkCredential credential)
     {
-        Client = new SmtpClient( host , port );
+        SmtpClient = new SmtpClient( host , port );
 
         this.Credentials( credential );
     }

@@ -268,7 +268,7 @@ public class MailExtensionsTest
 
         // Act
         mail.EnableSsl();
-        var actualStatOfSsl = mail.Client.EnableSsl;
+        var actualStatOfSsl = mail.SmtpClient.EnableSsl;
 
         // Assert
         actualStatOfSsl.Should().Be( true );
@@ -284,7 +284,7 @@ public class MailExtensionsTest
 
         // Act
         mail.DisableSsl();
-        var actualStatOfSsl = mail.Client.EnableSsl;
+        var actualStatOfSsl = mail.SmtpClient.EnableSsl;
 
         // Assert
         actualStatOfSsl.Should().Be( false );
