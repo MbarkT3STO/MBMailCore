@@ -224,6 +224,9 @@ public static class MailExtensions
     /// <param name="receiver">Email of the receiver</param>
     public static Mail To(this Mail mail, string receiver)
     {
+        // Throw exception if the email(receiver) is not valid
+        if (!IsValidEmail(receiver)) throw new EmailIsNotValidException(receiver);
+
         mail.MailMessage.To.Add( receiver );
 
         return mail;
@@ -236,7 +239,13 @@ public static class MailExtensions
     /// <param name="receivers">Emails of the receivers</param>
     public static Mail To(this Mail mail, List<string> receivers)
     {
-        receivers.ForEach( receiver => mail.MailMessage.To.Add( receiver ) );
+        receivers.ForEach( receiver =>
+                           {
+                               // Throw exception if the email(receiver) is not valid
+                               if (!IsValidEmail(receiver)) throw new EmailIsNotValidException(receiver);
+
+                               mail.MailMessage.To.Add( receiver );
+                           } );
 
         return mail;
     }
