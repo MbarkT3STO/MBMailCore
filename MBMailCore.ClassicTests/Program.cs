@@ -6,6 +6,7 @@ using System.Reflection;
 using MBMailCore.Core;
 using MBMailCore.Enums;
 using MBMailCore.Extensions;
+using GemBox.Email.Pop;
 
 var host = "smtp-mail.outlook.com";
 var port = 587;
@@ -104,26 +105,46 @@ var credentials = new NetworkCredential( "mbarkdev@outlook.com" , "X@123456@X" )
 
 #region Global test N5 [ Passed ]
 
-Console.WriteLine("Sending...");
+//Console.WriteLine("Sending...");
 
-var attachment = new Attachment(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\TP.pdf");
+//var attachment = new Attachment(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\TP.pdf");
 
-var filePath     = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Practice data.xlsx";
-var fileAsStream = File.Open(filePath, FileMode.Open);
+//var filePath     = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Practice data.xlsx";
+//var fileAsStream = File.Open(filePath, FileMode.Open);
 
 
-// Mail
-mail.Credentials( credentials )
-    .EnableSsl()
-    .From( "mbarkdev@outlook.com" )
-    .To( "mbarktiesto@outlook.com" )
-    .Subject( "Global test N5" )
-    .Body( "Hello dear from the global test N5" )
-    .Attachments( attachment )
-    .Attachments( fileAsStream , FileExtension.xlsx )
-    .Send();
+//// Mail
+//mail.Credentials( credentials )
+//    .EnableSsl()
+//    .From( "mbarkdev@outlook.com" )
+//    .To( "mbarktiesto@outlook.com" )
+//    .Subject( "Global test N5" )
+//    .Body( "Hello dear from the global test N5" )
+//    .Attachments( attachment )
+//    .Attachments( fileAsStream , FileExtension.xlsx )
+//    .Send();
 
-Console.WriteLine("Sent");
+//Console.WriteLine("Sent");
+
+#endregion
+
+
+#region Global test N6 [ Passed ]
+
+Console.WriteLine("Connecting...");
+
+// Mail Box
+var mailBox = new MailBox();
+mailBox.Host( "outlook.office365.com", 995 ).Authenticate( "mbarkdev@outlook.com" , "X@123456@X" );
+
+Console.WriteLine("Connected...");
+
+var lastReceivedEmail = mailBox.GetLastReceivedMail();
+
+Console.WriteLine( "Last received mail :" );
+Console.WriteLine($"Sender : {lastReceivedEmail.From[0].Address}");
+Console.WriteLine($"Subject : {lastReceivedEmail.Subject}");
+Console.WriteLine( $"Body : {lastReceivedEmail.BodyText}" );
 
 #endregion
 

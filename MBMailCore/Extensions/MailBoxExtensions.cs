@@ -1,4 +1,5 @@
 ﻿using GemBox.Email.Pop;
+using GemBox.Email.Security;
 using MBMailCore.Core;
 using MailMessage = GemBox.Email.MailMessage;
 
@@ -40,7 +41,8 @@ public static class MailBoxExtensions
     /// <param name="password">Password</param>
     public static MailBox Authenticate(this MailBox mailBox, string username, string password)
     {
-        mailBox.PopClient.Authenticate( username , password );
+        mailBox.PopClient.Connect();
+        mailBox.PopClient.Authenticate( username , password);
 
         return mailBox;
     } 
@@ -52,7 +54,7 @@ public static class MailBoxExtensions
     public static MailMessage GetLastReceivedMail(this MailBox mailBox)
     {
         var messagesCount    = mailBox.PopClient.GetCount();
-        var lastReceivedMail = mailBox.PopClient.GetMessage( messagesCount -1 );
+        var lastReceivedMail = mailBox.PopClient.GetMessage( messagesCount - 1 );
 
         return lastReceivedMail;
     }

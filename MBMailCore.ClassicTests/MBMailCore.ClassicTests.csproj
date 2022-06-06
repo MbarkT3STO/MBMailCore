@@ -11,4 +11,10 @@
     <ProjectReference Include="..\MBMailCore\MBMailCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="GemBox.Email">
+      <HintPath>..\MBMailCore\External Dependencies\GemBox.Email.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
