@@ -16,6 +16,10 @@ public class MailBox
 
     #region Constructors
 
+    public MailBox()
+    {
+        
+    }
     public MailBox(string host)
     {
         PopClient = new PopClient( host );
