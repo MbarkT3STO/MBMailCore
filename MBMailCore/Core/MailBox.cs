@@ -11,6 +11,9 @@ public class MailBox
 {
     #region Properties
 
+    public string Username { get; set; }
+    public string Password { get; set; }
+
     public PopClient  PopClient  { get; set; }
     public ImapClient ImapClient { get; set; }
 

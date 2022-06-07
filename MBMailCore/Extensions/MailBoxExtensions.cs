@@ -1,4 +1,6 @@
-﻿using GemBox.Email.Pop;
+﻿using System.Collections.ObjectModel;
+using GemBox.Email.Imap;
+using GemBox.Email.Pop;
 using GemBox.Email.Security;
 using MBMailCore.Core;
 using MailMessage = GemBox.Email.MailMessage;
@@ -7,6 +9,21 @@ namespace MBMailCore.Extensions;
 
 public static class MailBoxExtensions
 {
+    #region Private methods
+
+    private static void AuthenticateImapClient(MailBox mailBox)
+    {
+        if ( ! mailBox.ImapClient.IsConnected && ! mailBox.ImapClient.IsAuthenticated )
+        {
+            mailBox.ImapClient = new ImapClient(mailBox.PopClient.Host, mailBox.PopClient.Port);
+
+            mailBox.ImapClient.Connect();
+            mailBox.ImapClient.Authenticate(mailBox.Username, mailBox.Password);
+        }
+    }
+
+    #endregion
+
     /// <summary>
     /// Indicates the email provider's host
     /// </summary>
@@ -41,6 +58,9 @@ public static class MailBoxExtensions
     /// <param name="password">Password</param>
     public static MailBox Authenticate(this MailBox mailBox, string username, string password)
     {
+        mailBox.Username = username;
+        mailBox.Password = password;
+
         mailBox.PopClient.Connect();
         mailBox.PopClient.Authenticate( username , password);
 
@@ -81,5 +101,22 @@ public static class MailBoxExtensions
         var emailsCount = mailBox.PopClient.GetCount();
 
         return emailsCount;
+    }
+
+
+    /// <summary>
+    /// Search for message numbers
+    /// </summary>
+    /// <param name="mailBox"></param>
+    /// <param name="query">Search pattern/query</param>
+    public static ReadOnlyCollection<int> SearchMessageNumbers(this MailBox mailBox, string query)
+    {
+        mailBox.ImapClient = new ImapClient( mailBox.PopClient.Host , mailBox.PopClient.Port );
+
+        AuthenticateImapClient( mailBox );
+
+        var result = mailBox.ImapClient.SearchMessageNumbers( query );
+
+        return result;
     }
 }
