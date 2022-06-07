@@ -149,7 +149,7 @@ public static class MailBoxExtensions
     /// <param name="sender">The sender's email address</param>
     public static MailMessage ? GetLastReceivedMailFrom(this MailBox mailBox, string sender)
     {
-        var messageNumber = mailBox.ImapClient.SearchMessageNumbers( $"FROM {sender}" ).FirstOrDefault( -1 );
+        var messageNumber = mailBox.ImapClient.SearchMessageNumbers( $"FROM {sender}" ).LastOrDefault( -1 );
 
         MailMessage? message = null;
 

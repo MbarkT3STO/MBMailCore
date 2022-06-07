@@ -147,7 +147,6 @@ var credentials = new NetworkCredential( "mbarkdev@outlook.com" , "X@123456@X" )
 
 #endregion
 
-
 #region Global test N7 [ Failed ]
 
 Console.WriteLine("Connecting...");
