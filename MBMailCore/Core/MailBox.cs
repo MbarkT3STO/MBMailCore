@@ -14,6 +14,9 @@ public class MailBox
     public string Username { get; set; }
     public string Password { get; set; }
 
+    /// <summary>
+    /// Until this moment this represents an (GemBox) IMAP client
+    /// </summary>
     public ImapClient ImapClient { get; set; }
 
     #endregion
