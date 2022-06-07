@@ -14,7 +14,6 @@ public class MailBox
     public string Username { get; set; }
     public string Password { get; set; }
 
-    public PopClient  PopClient  { get; set; }
     public ImapClient ImapClient { get; set; }
 
     #endregion
@@ -27,12 +26,12 @@ public class MailBox
     }
     public MailBox(string host)
     {
-        PopClient = new PopClient( host );
+        ImapClient = new ImapClient( host );
     } 
     
     public MailBox(string host, int port)
     {
-        PopClient = new PopClient( host , port );
+        ImapClient = new ImapClient( host , port );
     }
 
     #endregion

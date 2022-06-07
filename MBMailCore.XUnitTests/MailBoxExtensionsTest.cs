@@ -16,7 +16,7 @@ public class MailBoxExtensionsTest
         mailBox.Host( host );
 
         // Act
-        var actualHost = mailBox.PopClient.Host;
+        var actualHost = mailBox.ImapClient.Host;
 
         // Assert
         actualHost.Should().Be( host );
@@ -33,7 +33,7 @@ public class MailBoxExtensionsTest
         mailBox.Host( host , port );
 
         // Act
-        var actualHost = mailBox.PopClient.Host;
+        var actualHost = mailBox.ImapClient.Host;
 
         // Assert
         actualHost.Should().Be(host);

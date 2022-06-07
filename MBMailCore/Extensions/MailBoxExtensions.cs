@@ -11,16 +11,16 @@ public static class MailBoxExtensions
 {
     #region Private methods
 
-    private static void AuthenticateImapClient(MailBox mailBox)
-    {
-        if ( ! mailBox.ImapClient.IsConnected && ! mailBox.ImapClient.IsAuthenticated )
-        {
-            mailBox.ImapClient = new ImapClient(mailBox.PopClient.Host, mailBox.PopClient.Port);
+    //private static void AuthenticateImapClient(MailBox mailBox)
+    //{
+    //    if ( ! mailBox.ImapClient.IsConnected && ! mailBox.ImapClient.IsAuthenticated )
+    //    {
+    //        mailBox.ImapClient = new ImapClient(mailBox.Host().Host, mailBox.ImapClient.Port);
 
-            mailBox.ImapClient.Connect();
-            mailBox.ImapClient.Authenticate(mailBox.Username, mailBox.Password);
-        }
-    }
+    //        mailBox.ImapClient.Connect();
+    //        mailBox.ImapClient.Authenticate(mailBox.Username, mailBox.Password);
+    //    }
+    //}
 
     #endregion
 
@@ -31,7 +31,7 @@ public static class MailBoxExtensions
     /// <param name="host">Host</param>
     public static MailBox Host(this MailBox mailBox, string host)
     {
-        mailBox.PopClient = new PopClient( host );
+        mailBox.ImapClient = new ImapClient( host );
 
         return mailBox;
     }
@@ -44,7 +44,7 @@ public static class MailBoxExtensions
     /// <param name="port">Port</param>
     public static MailBox Host(this MailBox mailBox, string host, int port)
     {
-        mailBox.PopClient = new PopClient( host , port );
+        mailBox.ImapClient = new ImapClient( host , port );
 
         return mailBox;
     }
@@ -61,8 +61,8 @@ public static class MailBoxExtensions
         mailBox.Username = username;
         mailBox.Password = password;
 
-        mailBox.PopClient.Connect();
-        mailBox.PopClient.Authenticate( username , password);
+        mailBox.ImapClient.Connect();
+        mailBox.ImapClient.Authenticate( username , password);
 
         return mailBox;
     } 
@@ -73,8 +73,8 @@ public static class MailBoxExtensions
     /// <param name="mailBox"></param>
     public static MailMessage GetLastReceivedMail(this MailBox mailBox)
     {
-        var messagesCount    = mailBox.PopClient.GetCount();
-        var lastReceivedMail = mailBox.PopClient.GetMessage( messagesCount - 1 );
+        var messagesCount = mailBox.ImapClient.ListMessages().Count;
+        var lastReceivedMail = mailBox.ImapClient.GetMessage( messagesCount - 1 );
 
         return lastReceivedMail;
     }
@@ -87,7 +87,7 @@ public static class MailBoxExtensions
     /// <param name="messageNumber">The Number/Index of the message/mail</param>
     public static MailMessage GetMail(this MailBox mailBox, int messageNumber)
     {
-        var mailMessage = mailBox.PopClient.GetMessage( messageNumber );
+        var mailMessage = mailBox.ImapClient.GetMessage( messageNumber );
 
         return mailMessage;
     }
@@ -98,7 +98,7 @@ public static class MailBoxExtensions
     /// <param name="mailBox"></param>
     public static int Count(this MailBox mailBox )
     {
-        var emailsCount = mailBox.PopClient.GetCount();
+        var emailsCount = mailBox.ImapClient.ListMessages().Count;
 
         return emailsCount;
     }
@@ -111,8 +111,6 @@ public static class MailBoxExtensions
     /// <param name="query">Search pattern/query</param>
     public static ReadOnlyCollection<int> SearchMessageNumbers(this MailBox mailBox, string query)
     {
-        AuthenticateImapClient( mailBox );
-
         var result = mailBox.ImapClient.SearchMessageNumbers( query );
 
         return result;
@@ -125,15 +123,13 @@ public static class MailBoxExtensions
     /// <param name="sender">The sender's email address</param>
     public static MailMessage ? GetLastReceivedMailFrom(this MailBox mailBox, string sender)
     {
-        AuthenticateImapClient( mailBox );
-
         var messageNumber = mailBox.ImapClient.SearchMessageNumbers( $"FROM {sender}" ).FirstOrDefault( -1 );
 
         MailMessage? message = null;
 
         if ( messageNumber != -1 )
         { 
-            message = mailBox.PopClient.GetMessage( messageNumber );
+            message = mailBox.ImapClient.GetMessage( messageNumber );
         }
 
         return message;
