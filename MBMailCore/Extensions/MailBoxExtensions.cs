@@ -65,8 +65,34 @@ public static class MailBoxExtensions
         mailBox.ImapClient.Authenticate( username , password);
 
         return mailBox;
-    } 
+    }
+
+
+    /// <summary>
+    /// Selects the inbox
+    /// </summary>
+    /// <param name="mailBox"></param>
+    public static MailBox SelectInbox(this MailBox mailBox)
+    {
+        mailBox.ImapClient.SelectInbox();
+
+        return mailBox;
+    }   
     
+    /// <summary>
+    /// Selects a specific folder
+    /// </summary>
+    /// <param name="mailBox"></param>
+    /// <param name="folderName">Folder name</param>
+    /// <param name="readOnly">Indicates the manipulation mode with the folder</param>
+    public static MailBox SelectFolder(this MailBox mailBox, string folderName, bool readOnly)
+    {
+        mailBox.ImapClient.SelectFolder( folderName , readOnly );
+
+        return mailBox;
+    }
+
+
     /// <summary>
     /// Get the last received email message
     /// </summary>
