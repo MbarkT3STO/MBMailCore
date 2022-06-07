@@ -1,4 +1,5 @@
 ﻿using System.Net.Mail;
+using GemBox.Email.Imap;
 using GemBox.Email.Pop;
 
 namespace MBMailCore.Core;
@@ -10,7 +11,8 @@ public class MailBox
 {
     #region Properties
 
-    public PopClient PopClient { get; set; }
+    public PopClient  PopClient  { get; set; }
+    public ImapClient ImapClient { get; set; }
 
     #endregion
 
