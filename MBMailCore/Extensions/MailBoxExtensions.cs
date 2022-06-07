@@ -111,12 +111,31 @@ public static class MailBoxExtensions
     /// <param name="query">Search pattern/query</param>
     public static ReadOnlyCollection<int> SearchMessageNumbers(this MailBox mailBox, string query)
     {
-        mailBox.ImapClient = new ImapClient( mailBox.PopClient.Host , mailBox.PopClient.Port );
-
         AuthenticateImapClient( mailBox );
 
         var result = mailBox.ImapClient.SearchMessageNumbers( query );
 
         return result;
+    }
+
+    /// <summary>
+    /// Returns the last received mail from a specific sender
+    /// </summary>
+    /// <param name="mailBox"></param>
+    /// <param name="sender">The sender's email address</param>
+    public static MailMessage ? GetLastReceivedMailFrom(this MailBox mailBox, string sender)
+    {
+        AuthenticateImapClient( mailBox );
+
+        var messageNumber = mailBox.ImapClient.SearchMessageNumbers( $"FROM {sender}" ).FirstOrDefault( -1 );
+
+        MailMessage? message = null;
+
+        if ( messageNumber != -1 )
+        { 
+            message = mailBox.PopClient.GetMessage( messageNumber );
+        }
+
+        return message;
     }
 }
