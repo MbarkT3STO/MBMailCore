@@ -71,4 +71,15 @@ public static class MailBoxExtensions
 
         return mailMessage;
     }
+
+    /// <summary>
+    /// Get the received Emails count
+    /// </summary>
+    /// <param name="mailBox"></param>
+    public static int Count(this MailBox mailBox )
+    {
+        var emailsCount = mailBox.PopClient.GetCount();
+
+        return emailsCount;
+    }
 }
