@@ -128,23 +128,43 @@ var credentials = new NetworkCredential( "mbarkdev@outlook.com" , "X@123456@X" )
 
 #endregion
 
-
 #region Global test N6 [ Passed ]
+
+//Console.WriteLine("Connecting...");
+
+//// Mail Box
+//var mailBox = new MailBox();
+//mailBox.Host( "outlook.office365.com", 995 ).Authenticate( "mbarkdev@outlook.com" , "X@123456@X" );
+
+//Console.WriteLine("Connected...");
+
+//var lastReceivedEmail = mailBox.GetLastReceivedMail();
+
+//Console.WriteLine( "Last received mail :" );
+//Console.WriteLine($"Sender : {lastReceivedEmail.From[0].Address}");
+//Console.WriteLine($"Subject : {lastReceivedEmail.Subject}");
+//Console.WriteLine( $"Body : {lastReceivedEmail.BodyText}" );
+
+#endregion
+
+
+#region Global test N7 [ Failed ]
 
 Console.WriteLine("Connecting...");
 
 // Mail Box
 var mailBox = new MailBox();
-mailBox.Host( "outlook.office365.com", 995 ).Authenticate( "mbarkdev@outlook.com" , "X@123456@X" );
+mailBox.Host("outlook.office365.com", 995).Authenticate("mbarkdev@outlook.com", "X@123456@X");
 
 Console.WriteLine("Connected...");
 
-var lastReceivedEmail = mailBox.GetLastReceivedMail();
+var numberofLastReceivedEmailFromMbark = mailBox.SearchMessageNumbers( "FROM mbarktiesto@outlook.com" ).FirstOrDefault();
+var LastReceivedEmailFromMbark = mailBox.GetMail( numberofLastReceivedEmailFromMbark );
 
-Console.WriteLine( "Last received mail :" );
-Console.WriteLine($"Sender : {lastReceivedEmail.From[0].Address}");
-Console.WriteLine($"Subject : {lastReceivedEmail.Subject}");
-Console.WriteLine( $"Body : {lastReceivedEmail.BodyText}" );
+Console.WriteLine("Last received mail from MBARK TIESTO :");
+Console.WriteLine($"Sender : {LastReceivedEmailFromMbark.From[0].Address}");
+Console.WriteLine($"Subject : {LastReceivedEmailFromMbark.Subject}");
+Console.WriteLine($"Body : {LastReceivedEmailFromMbark.BodyText}");
 
 #endregion
 
