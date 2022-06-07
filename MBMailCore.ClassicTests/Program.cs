@@ -149,21 +149,40 @@ var credentials = new NetworkCredential( "mbarkdev@outlook.com" , "X@123456@X" )
 
 #region Global test N7 [ Failed ]
 
+//Console.WriteLine("Connecting...");
+
+//// Mail Box
+//var mailBox = new MailBox();
+//mailBox.Host("outlook.office365.com", 995).Authenticate("mbarkdev@outlook.com", "X@123456@X");
+
+//Console.WriteLine("Connected...");
+
+//var numberofLastReceivedEmailFromMbark = mailBox.SearchMessageNumbers( "FROM mbarktiesto@outlook.com" ).FirstOrDefault();
+//var LastReceivedEmailFromMbark = mailBox.GetMail( numberofLastReceivedEmailFromMbark );
+
+//Console.WriteLine("Last received mail from MBARK TIESTO :");
+//Console.WriteLine($"Sender : {LastReceivedEmailFromMbark.From[0].Address}");
+//Console.WriteLine($"Subject : {LastReceivedEmailFromMbark.Subject}");
+//Console.WriteLine($"Body : {LastReceivedEmailFromMbark.BodyText}");
+
+#endregion
+
+#region Global test N8 [ Passed ]
+
 Console.WriteLine("Connecting...");
 
 // Mail Box
 var mailBox = new MailBox();
-mailBox.Host("outlook.office365.com", 995).Authenticate("mbarkdev@outlook.com", "X@123456@X");
+mailBox.Host("outlook.office365.com", 993).Authenticate("mbarkdev@outlook.com", "X@123456@X").SelectInbox();
 
 Console.WriteLine("Connected...");
 
-var numberofLastReceivedEmailFromMbark = mailBox.SearchMessageNumbers( "FROM mbarktiesto@outlook.com" ).FirstOrDefault();
-var LastReceivedEmailFromMbark = mailBox.GetMail( numberofLastReceivedEmailFromMbark );
+var lastReceivedEmailFromMbark = mailBox.GetLastReceivedMailFrom( "mbarktiesto@outlook.com" );
 
 Console.WriteLine("Last received mail from MBARK TIESTO :");
-Console.WriteLine($"Sender : {LastReceivedEmailFromMbark.From[0].Address}");
-Console.WriteLine($"Subject : {LastReceivedEmailFromMbark.Subject}");
-Console.WriteLine($"Body : {LastReceivedEmailFromMbark.BodyText}");
+Console.WriteLine($"Sender : {lastReceivedEmailFromMbark?.From[0].Address}");
+Console.WriteLine($"Subject : {lastReceivedEmailFromMbark?.Subject}");
+Console.WriteLine($"Body : {lastReceivedEmailFromMbark?.BodyText}");
 
 #endregion
 
