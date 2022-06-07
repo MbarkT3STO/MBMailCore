@@ -141,6 +141,35 @@ public static class MailBoxExtensions
 
         return result;
     }
+    /// <summary>
+    /// Search for messages
+    /// </summary>
+    /// <param name="mailBox"></param>
+    /// <param name="query">Search pattern/query</param>
+    public static Collection<MailMessage> SearchMessages(this MailBox mailBox, string query)
+    {
+        var messageNumbers = mailBox.ImapClient.SearchMessageNumbers( query );
+        var result         = new Collection<MailMessage>();
+
+        foreach ( var number in messageNumbers )
+        {
+            var message = mailBox.ImapClient.GetMessage( number );
+            result.Add(message);
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Search for messages
+    /// </summary>
+    /// <param name="mailBox"></param>
+    /// <param name="query">Search pattern/query</param>
+    public static Task<Collection<MailMessage>> SearchMessagesAsync( this MailBox mailBox , string query )
+    {
+        return Task.Run( () => SearchMessages( mailBox , query ) );
+    }
+
 
     /// <summary>
     /// Returns the last received mail from a specific sender
