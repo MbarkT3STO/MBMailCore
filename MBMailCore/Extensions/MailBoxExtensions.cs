@@ -58,4 +58,17 @@ public static class MailBoxExtensions
 
         return lastReceivedMail;
     }
+
+
+    /// <summary>
+    /// Get a specific mail message
+    /// </summary>
+    /// <param name="mailBox"></param>
+    /// <param name="messageNumber">The Number/Index of the message/mail</param>
+    public static MailMessage GetMail(this MailBox mailBox, int messageNumber)
+    {
+        var mailMessage = mailBox.PopClient.GetMessage( messageNumber );
+
+        return mailMessage;
+    }
 }
