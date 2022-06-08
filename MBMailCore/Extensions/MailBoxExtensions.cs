@@ -141,12 +141,13 @@ public static class MailBoxExtensions
 
         return result;
     }
+
     /// <summary>
-    /// Search for messages
+    /// Search for mail  messages
     /// </summary>
     /// <param name="mailBox"></param>
     /// <param name="query">Search pattern/query</param>
-    public static Collection<MailMessage> SearchMessages(this MailBox mailBox, string query)
+    public static Collection<MailMessage> SearchMails(this MailBox mailBox, string query)
     {
         var messageNumbers = mailBox.ImapClient.SearchMessageNumbers( query );
         var result         = new Collection<MailMessage>();
@@ -161,12 +162,12 @@ public static class MailBoxExtensions
     }
 
     /// <summary>
-    /// <inheritdoc cref="SearchMessages(MailBox, string)"/>
+    /// <inheritdoc cref="SearchMails"/>
     /// </summary>
-    /// <inheritdoc cref="SearchMessages(MailBox, string)"/>
-    public static Task<Collection<MailMessage>> SearchMessagesAsync( this MailBox mailBox , string query )
+    /// <inheritdoc cref="SearchMails"/>
+    public static Task<Collection<MailMessage>> SearchMailsAsync( this MailBox mailBox , string query )
     {
-        return Task.Run( () => SearchMessages( mailBox , query ) );
+        return Task.Run( () => SearchMails( mailBox , query ) );
     }
 
 
