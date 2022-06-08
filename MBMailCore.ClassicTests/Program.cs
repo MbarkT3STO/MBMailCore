@@ -188,6 +188,28 @@ var credentials = new NetworkCredential( "mbarkdev@outlook.com" , "X@123456@X" )
 
 #region Global test N9 [ Passed ]
 
+//Console.WriteLine("Connecting...");
+
+//// Mail Box
+//var mailBox = new MailBox();
+//mailBox.Host("outlook.office365.com", 993).Authenticate("mbarkdev@outlook.com", "X@123456@X").SelectInbox();
+
+//Console.WriteLine("Connected...");
+
+//var allReceivedMailsFromMbark = await mailBox.GetAllReceivedMailsFromAsync( "mbarktiesto@outlook.com" );
+
+//foreach ( var mailMessage in allReceivedMailsFromMbark )
+//{
+//    Console.WriteLine("Last received mail from MBARK TIESTO :");
+//    Console.WriteLine($"Sender : {mailMessage?.From[0].Address}");
+//    Console.WriteLine($"Subject : {mailMessage?.Subject}");
+//    Console.WriteLine($"Body : {mailMessage?.BodyText}");
+//}
+
+#endregion
+
+#region Global test N10 [ Passed ]
+
 Console.WriteLine("Connecting...");
 
 // Mail Box
@@ -196,9 +218,9 @@ mailBox.Host("outlook.office365.com", 993).Authenticate("mbarkdev@outlook.com", 
 
 Console.WriteLine("Connected...");
 
-var allReceivedMailsFromMbark = await mailBox.GetAllReceivedMailsFromAsync( "mbarktiesto@outlook.com" );
+var unseenMailsReceivedFromMbark = await mailBox.GetUnseenMailsReceivedFromAsync( "mbarktiesto@outlook.com" );
 
-foreach ( var mailMessage in allReceivedMailsFromMbark )
+foreach ( var mailMessage in unseenMailsReceivedFromMbark )
 {
     Console.WriteLine("Last received mail from MBARK TIESTO :");
     Console.WriteLine($"Sender : {mailMessage?.From[0].Address}");
