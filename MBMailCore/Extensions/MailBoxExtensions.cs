@@ -222,4 +222,38 @@ public static class MailBoxExtensions
     {
         return Task.Run( () => mailBox.GetAllReceivedMailsFrom( sender ) );
     }
+
+
+    /// <summary>
+    /// Returns all unseen received mails from a specific sender
+    /// </summary>
+    /// <param name="mailBox"></param>
+    /// <param name="sender">The sender's email address</param>
+    public static ICollection<MailMessage> GetUnseenMailsReceivedFrom(this MailBox mailBox, string sender)
+    {
+        var searchMessageNumbers = mailBox.ImapClient.SearchMessageNumbers($"UNSEEN FROM {sender}");
+
+        ICollection<MailMessage> messages = new Collection<MailMessage>();
+
+        if (searchMessageNumbers.Count > 0)
+        {
+            foreach (var messageNumber in searchMessageNumbers)
+            {
+                var message = mailBox.ImapClient.GetMessage(messageNumber);
+
+                messages.Add(message);
+            }
+        }
+
+        return messages;
+    }
+
+    /// <summary>
+    /// <inheritdoc cref="GetUnseenMailsReceivedFrom(MailBox,string)"/>
+    /// </summary>
+    /// <inheritdoc cref="GetUnseenMailsReceivedFrom(MailBox,string)"/>
+    public static Task<ICollection<MailMessage>> GetUnseenMailsReceivedFromAsync(this MailBox mailBox, string sender)
+    {
+        return Task.Run( () => mailBox.GetUnseenMailsReceivedFrom( sender ) );
+    }
 }
