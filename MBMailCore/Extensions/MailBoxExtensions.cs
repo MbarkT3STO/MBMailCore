@@ -131,11 +131,11 @@ public static class MailBoxExtensions
 
 
     /// <summary>
-    /// Search for message numbers
+    /// Search for mail message numbers
     /// </summary>
     /// <param name="mailBox"></param>
     /// <param name="query">Search pattern/query</param>
-    public static ReadOnlyCollection<int> SearchMessageNumbers(this MailBox mailBox, string query)
+    public static ReadOnlyCollection<int> SearchMailNumbers(this MailBox mailBox, string query)
     {
         var result = mailBox.ImapClient.SearchMessageNumbers( query );
 
