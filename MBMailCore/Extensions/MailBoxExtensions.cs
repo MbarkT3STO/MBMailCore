@@ -161,10 +161,9 @@ public static class MailBoxExtensions
     }
 
     /// <summary>
-    /// Search for messages
+    /// <inheritdoc cref="SearchMessages(MailBox, string)"/>
     /// </summary>
-    /// <param name="mailBox"></param>
-    /// <param name="query">Search pattern/query</param>
+    /// <inheritdoc cref="SearchMessages(MailBox, string)"/>
     public static Task<Collection<MailMessage>> SearchMessagesAsync( this MailBox mailBox , string query )
     {
         return Task.Run( () => SearchMessages( mailBox , query ) );
@@ -188,5 +187,38 @@ public static class MailBoxExtensions
         }
 
         return message;
+    } 
+    
+    /// <summary>
+    /// Returns all received mails from a specific sender
+    /// </summary>
+    /// <param name="mailBox"></param>
+    /// <param name="sender">The sender's email address</param>
+    public static ICollection<MailMessage> GetAllReceivedMailsFrom(this MailBox mailBox, string sender)
+    {
+        var searchMessageNumbers = mailBox.ImapClient.SearchMessageNumbers( $"FROM {sender}" );
+
+        ICollection<MailMessage> messages = new Collection<MailMessage>();
+
+        if ( searchMessageNumbers.Count > 0 )
+        {
+            foreach ( var messageNumber in searchMessageNumbers )
+            {
+                var message = mailBox.ImapClient.GetMessage( messageNumber );
+
+                messages.Add( message );
+            }
+        }
+
+        return messages;
+    }
+
+    /// <summary>
+    /// <inheritdoc cref="GetAllReceivedMailsFrom(MailBox,string)"/>
+    /// </summary>
+    /// <inheritdoc cref="GetAllReceivedMailsFrom(MailBox,string)"/>
+    public static Task<ICollection<MailMessage>> GetAllReceivedMailsFromAsync(this MailBox mailBox, string sender)
+    {
+        return Task.Run( () => mailBox.GetAllReceivedMailsFrom( sender ) );
     }
 }
