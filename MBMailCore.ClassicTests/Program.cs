@@ -200,7 +200,7 @@ var credentials = new NetworkCredential( "mbarkdev@outlook.com" , "X@123456@X" )
 
 //foreach ( var mailMessage in allReceivedMailsFromMbark )
 //{
-//    Console.WriteLine("Last received mail from MBARK TIESTO :");
+//    Console.WriteLine("Received mail from MBARK TIESTO :");
 //    Console.WriteLine($"Sender : {mailMessage?.From[0].Address}");
 //    Console.WriteLine($"Subject : {mailMessage?.Subject}");
 //    Console.WriteLine($"Body : {mailMessage?.BodyText}");
@@ -222,7 +222,7 @@ var unseenMailsReceivedFromMbark = await mailBox.GetUnseenMailsReceivedFromAsync
 
 foreach ( var mailMessage in unseenMailsReceivedFromMbark )
 {
-    Console.WriteLine("Last received mail from MBARK TIESTO :");
+    Console.WriteLine("Unseen mail from MBARK TIESTO :");
     Console.WriteLine($"Sender : {mailMessage?.From[0].Address}");
     Console.WriteLine($"Subject : {mailMessage?.Subject}");
     Console.WriteLine($"Body : {mailMessage?.BodyText}");
